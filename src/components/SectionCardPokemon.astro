@@ -1,0 +1,22 @@
+---
+
+import CardPokemon from "./CardPokemon.astro";
+import type { PokemonListCard } from "../interfaces/pokemon-list-card";
+
+const res = await  fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+const data = await res.json() as PokemonListCard;
+
+
+---
+<section class="flex flex-col items-center justify-center p-5">
+    <h1 class="flex gap-3 items-center text-5xl font-alumni text-[#3761A8]]">List  <span class="bg-[#3761A8] text-white p-1 rounded-xl hover:bg-black pl-4 pr-4">Pokemons</span></h1>
+<div class="p-3 mt-3 grid flex-wrap grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2" >
+    {
+        data.results.map((pokemon) =>
+            <CardPokemon src={pokemon.url} name={pokemon.name} />
+        )
+    }
+
+</div>
+
+</section>

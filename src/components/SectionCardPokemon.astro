@@ -1,10 +1,25 @@
 ---
-
-import CardPokemon from "./CardPokemon.astro";
-import type { PokemonListCard } from "../interfaces/pokemon-list-card";
+import type { GetStaticPaths } from "astro";
+import CardPokemon from "@components/CardPokemon.astro";
+import type { PokemonListCard } from "@interfaces/pokemon-list-card";
 
 const res = await  fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
-const data = await res.json() as PokemonListCard;
+const data = await res.json() as PokemonListCard; 
+
+/*
+//  --------------------------------
+//  | SECTION CON PAGINACION |
+// ----------------------------------
+
+export const getStaticPaths = (async ({paginate}) => {
+	const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+	const { results }  = await response.json() as PokemonListCard;
+	
+	return paginate(results,{pageSize:20});
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props; 
+*/
 
 
 ---

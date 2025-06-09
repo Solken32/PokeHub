@@ -11,8 +11,10 @@ const imgpokemon=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 const enlaceCard=`/pokemons/${name}`;
 ---
 
-<a  href={enlaceCard} class="border-black border-2 p-2 flex flex-col gap-3  items-center  bg-black text-white hover:bg-blue-950  text-center hover:scale-105 transition-transform rounded-xl" href="/">
-    <img src={imgpokemon} 
+<a href={enlaceCard} class="border-black border-2 p-2 flex flex-col gap-3  items-center  bg-black text-white hover:bg-blue-950  text-center hover:scale-105 transition-transform rounded-xl" href="/">
+    <img 
+        transition:name={`${name}-image`} 
+        src={imgpokemon} 
         alt={name}
         class="rounded-xl"
     > 

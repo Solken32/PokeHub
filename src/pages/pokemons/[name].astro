@@ -1,7 +1,9 @@
 ---
 import type { GetStaticPaths } from "astro";
-import Layout from "../../layouts/Layout.astro";
-import type { PokemonListCard } from "../../interfaces/pokemon-list-card";
+import Layout from "@layouts/Layout.astro";
+import type { PokemonListCard } from "@interfaces/pokemon-list-card";
+import PokemonDetail from "@components/pokemonDetail/PokemonDetail.astro";
+
 
 
 
@@ -12,8 +14,8 @@ export const getStaticPaths = (async() => {
     const resp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
     const datos = (await resp.json()) as PokemonListCard;
     return datos.results.map((data) =>({
-      params: { name: data.name},
-      props: { url: data.url },
+        params: { name: data.name},
+        props: { url: data.url },
     }))
 })satisfies GetStaticPaths;
 
@@ -44,27 +46,8 @@ const {url} =Astro.props;
 const id= url.split("/").at(-2);
 const image=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 const audioSrc=`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
-
 ---
 
-<Layout title={name}>
-    <section class="p-2 flex justify-center gap-4 max-w-screen">
-        <img  class="border-1 rounded-2xl" src={image} alt={name}>
-        <div class="p-2 flex flex-col gap-3 text-[12px] justify-center">
-            <a class="font-semibold underline text-blue-900" href="/">Regresar</a>
-            <h1 class="text-3xl font-semibold capitalize">{name}</h1>
-            <p> Descripcion del pokemon tralalero tralala </p>
-            <audio controls class="p-2" >
-                <source src={audioSrc}>dddd
-            </audio>
-
-
-
-
-        </div>
-    
-
-
-    </section>
-
+<Layout title={name}  description={`Informacion sobre el pokemon ${name}`}  image={image}>
+    <PokemonDetail name={name} src={image} id={id} audio={audioSrc}/>
 </Layout>

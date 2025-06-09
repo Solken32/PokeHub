@@ -1,0 +1,84 @@
+---
+const {name, src,id,audio} = Astro.props;
+---
+<div class="min-h-screen  p-4">
+  <div class="max-w-4xl mx-auto">
+    {/* Botón de regresar */}
+    <div class="mb-6">
+      <a href="/">
+        <button
+          class="cursor-pointer flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 hover:bg-gray-50"
+        >
+          <span class="font-medium text-gray-700">Regresar</span>
+        </button>
+      </a>
+    </div>
+
+    {/* Contenedor principal */}
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+      {/* Header */}
+      <div
+        class="bg-gradient-to-r from-blue-800 to-blue-400 text-white p-8"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-bold mb-2 capitalize">{name}</h1>
+            <p class="text-yellow-100">#{id}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Contenido */}
+      <div class="p-8">
+        <div class="grid lg:grid-cols-2 gap-8">
+          {/* Columna izquierda - Imagen y Audio */}
+          <div class="space-y-6">
+            {/* Imagen del Pokémon */}
+            <div
+              class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-8 flex items-center justify-center"
+            >
+              <img
+                transition:name={`${name}-image`}
+                src={src}
+                class="w-72 h-72 object-contain drop-shadow-2xl"
+              />
+            </div>
+          </div>
+
+          {/* Columna derecha - Información */}
+          <div class="space-y-6">
+            {/* Descripción */}
+            <div>
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                Nombre del Pokemon
+              </h2>
+              <p class="text-gray-600 leading-relaxed text-lg capitalize">{name}</p>
+            </div>
+
+            {/* Sección de Audio */}
+            <div
+              class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="font-semibold text-gray-800 mb-1">
+                    Sonido del Pokémon
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    Escucha el grito característico
+                  </p>
+                </div>
+              </div>
+
+              {/* Elemento de audio HTML5 */}
+              <audio controls class="w-full">
+                <source src={audio} />
+                Tu navegador no soporta el elemento de audio.
+              </audio>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

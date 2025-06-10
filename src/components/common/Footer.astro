@@ -1,0 +1,76 @@
+---
+import { Heart } from "lucide-react";
+---
+
+<footer class="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white">
+  {/* Barra superior decorativa */}
+  <div class="h-1 bg-gradient-to-r from-yellow-400 via-blue-500 to-green-500">
+  </div>
+
+  <div class="container mx-auto px-4 py-12">
+    <div class="flex justify-start items-center">
+      {/* Sección del Logo y Descripción */}
+      <div class="lg:col-span-1">
+        <div class="flex items-center space-x-2 mb-4">
+          <div
+            class="h-8 w-8 bg-white rounded-full flex items-center justify-center"
+          >
+            <div
+              class="h-6 w-6 bg-red-600 rounded-full border border-black flex items-center justify-center"
+            >
+              <div class="h-2 w-2 bg-white rounded-full"></div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold">PokeHub</h3>
+        </div>
+        <p class="text-red-100 text-sm leading-relaxed mb-4">
+          Tu destino definitivo para explorar el mundo Pokémon. Descubre,
+          aprende y conviértete en el mejor entrenador.
+        </p>
+        <div class="flex items-center space-x-1 text-red-200 text-sm">
+          <span>Hecho con</span>
+          <Heart className="h-4 w-4 text-pink-400 fill-current" />
+          <span>para entrenadores</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Separador */}
+    <div class="border-t border-red-500/30 mt-8 pt-6">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+      >
+        {/* Copyright */}
+        <div class="text-center md:text-left">
+          <p class="text-red-200 text-sm">©{new Date().getFullYear()}. PokeHub.</p>
+        </div>
+
+        {/* Enlaces adicionales */}
+        <div class="flex space-x-6 text-sm">
+          <a
+            href="/favoritos"
+            class="text-red-200 hover:text-yellow-300 transition-colors duration-200"
+          >
+            Favoritos
+          </a>
+          <a
+            href="/"
+            class="text-red-200 hover:text-yellow-300 transition-colors duration-200"
+          >
+            Lista
+          </a>
+          <a
+            href="/pokemons/1"
+            class="text-red-200 hover:text-yellow-300 transition-colors duration-200"
+          >
+            Paginación
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Barra inferior decorativa */}
+  <div class="h-1 bg-gradient-to-r from-green-500 via-blue-500 to-yellow-400">
+  </div>
+</footer>

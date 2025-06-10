@@ -1,0 +1,10 @@
+---
+import Layout from "@layouts/Layout.astro";
+import FavoriteSection from "@components/favoritos/FavoriteSection.jsx";
+
+---
+
+<Layout title="Favoritos">
+    <FavoriteSection client:only="react"  />
+    
+</Layout>

@@ -1,28 +1,35 @@
 ---
-const {name, src,id,audio} = Astro.props;
+import { Heart } from "lucide-react";
+const { name, src, id, audio } = Astro.props;
+
 ---
-<div class="min-h-screen  p-4">
+
+<div  class="min-h-screen p-4">
   <div class="max-w-4xl mx-auto">
     {/* Botón de regresar */}
     <div class="mb-6">
-      <a href="/">
-        <button
-          class="cursor-pointer flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 hover:bg-gray-50"
-        >
-          <span class="font-medium text-gray-700">Regresar</span>
-        </button>
-      </a>
+      <button
+        onclick="history.back()"
+        class="cursor-pointer flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 border border-gray-200 hover:bg-gray-50"
+      >
+        <span class="font-medium text-gray-700">Regresar</span>
+      </button>
     </div>
 
     {/* Contenedor principal */}
     <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
       {/* Header */}
-      <div
-        class="bg-gradient-to-r from-blue-800 to-blue-400 text-white p-8"
-      >
+      <div class="bg-gradient-to-r from-blue-800 to-blue-400 text-white p-8">
         <div class="flex items-center justify-between">
           <div>
-            <h1 class="text-4xl font-bold mb-2 capitalize">{name}</h1>
+            <div class="flex items-center gap-4">
+              <h1 class="text-4xl font-bold mb-2 capitalize ">{name}</h1>
+              <button class="cursor-pointer" id="btnFavorite" data-id={id} data-name={name} >
+                <Heart data-outline size="30" />
+                <Heart data-full size="30" fill="red" className="hidden" />
+              </button>
+            </div>
+            
             <p class="text-yellow-100">#{id}</p>
           </div>
         </div>
@@ -52,7 +59,9 @@ const {name, src,id,audio} = Astro.props;
               <h2 class="text-2xl font-bold text-gray-800 mb-4">
                 Nombre del Pokemon
               </h2>
-              <p class="text-gray-600 leading-relaxed text-lg capitalize">{name}</p>
+              <p class="text-gray-600 leading-relaxed text-lg capitalize">
+                {name}
+              </p>
             </div>
 
             {/* Sección de Audio */}
@@ -82,3 +91,61 @@ const {name, src,id,audio} = Astro.props;
     </div>
   </div>
 </div>
+
+<script>
+  interface FavoritePokemon {
+    name: string,
+    id:number
+  }
+
+  const handlePageLoad = () => {
+
+    // creamos arreglo para guardar en Local Storgae
+    let favoritePokemons: FavoritePokemon[] = JSON.parse(localStorage.getItem("favorites") ?? "[]");
+
+    const btnFavorite = document.getElementById("btnFavorite") as HTMLButtonElement;
+  
+    if(!btnFavorite) return;
+  
+    const name= btnFavorite.dataset.name ?? "";
+    const id = btnFavorite.dataset.id ?? "";
+    const isFavorite= favoritePokemons.some(fav => fav.name === name);
+
+    const heartOutline=btnFavorite.querySelector("[data-outline]") as HTMLElement;
+    const heartFull=btnFavorite.querySelector("[data-full]") as HTMLElement;
+
+    if(isFavorite){
+      heartOutline.classList.add("hidden");
+      heartFull.classList.remove("hidden");
+    }
+
+    const toggleFavorite= () => {
+      const isFavorite= favoritePokemons.some(fav => fav.name === name);
+      if(isFavorite){
+        // Remover
+        favoritePokemons = favoritePokemons.filter(fav => fav.name !== name);
+
+      } else{
+        // Agregar
+        favoritePokemons.push({
+          id: +id,
+          name:name
+        })
+      }
+
+      localStorage.setItem("favorites", JSON.stringify(favoritePokemons));
+    };
+
+
+
+    btnFavorite.addEventListener("click", () => {
+      heartOutline.classList.toggle("hidden");
+      heartFull.classList.toggle("hidden");
+      toggleFavorite();
+    })
+
+  };
+
+  document.addEventListener("astro:page-load", handlePageLoad);
+
+</script>

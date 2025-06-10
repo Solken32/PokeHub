@@ -20,7 +20,7 @@
         "./src/interfaces/*"
       ]
     },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js"
   }
 }

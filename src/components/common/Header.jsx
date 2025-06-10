@@ -1,17 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState } from "react";
+import { Menu } from "lucide-react";
 
-export default function Header() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+export function Header({path}) {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Toggle para el menú móvil
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen)
-    }
+    };
 
+    const links = [
+        { href: "/", text: "Lista" },
+        { href: "/pokemons/1", text: "Paginacion" },
+        { href: "/favoritos", text: "Favoritos" },
+        { href: "#", text: "Regiones" }
+    ];
 
     return (
+        <>
         <header className="w-full bg-red-600 text-white">
             {/* Barra superior con degradado */}
             <div className="h-2 bg-gradient-to-r from-yellow-400 via-red-500 to-blue-500"></div>
@@ -31,52 +39,36 @@ export default function Header() {
                     </div>
 
                     {/* Navegación - Escritorio */}
-                    <nav className="hidden md:flex items-center space-x-6">
-                        <a href="/" className="font-medium hover:text-yellow-300 transition-colors">
-                            Lista
-                        </a>
-                        <a href="/pokemons/1" className="font-medium hover:text-yellow-300 transition-colors">
-                            Paginacion
-                        </a>
-                        <a href="/regions" className="font-medium hover:text-yellow-300 transition-colors">
-                            Regiones
-                        </a>
-                        <a href="/games" className="font-medium hover:text-yellow-300 transition-colors">
-                            Juegos
-                        </a>
+                    <nav className="hidden md:flex items-center space-x-6"> 
+                        {
+                            links.map(link => (
+                                <a key={link.text} href={link.href} className={`font-medium hover:text-yellow-300 transition-colors ${path == link.href ? "border-b-2" : "" }`}>
+                                    {link.text}
+                                </a>
+                            ))
+                        }
                     </nav>
 
                     {/* Botón de menú - Móvil */}
-                    <button
-                        className="md:hidden p-2 rounded-md hover:bg-white/20 transition-colors"
+                    <Menu
+                        className="md:hidden p-2 rounded-md hover:bg-white/20 w-10 h-10 transition-colors"
                         onClick={toggleMenu}
                         aria-label="Menú"
-                    >
-                        <div className="w-6 flex flex-col space-y-1">
-                            <span className="h-0.5 w-full bg-current"></span>
-                            <span className="h-0.5 w-full bg-current"></span>
-                            <span className="h-0.5 w-full bg-current"></span>
-                        </div>
-                    </button>
+                    />
+                        
                 </div>
 
                 {/* Menú móvil */}
                 {isMenuOpen && (
                     <div className="md:hidden mt-4 py-4 border-t border-white/20">
                         <nav className="flex flex-col space-y-4">
-                            <a href="/" className="font-medium hover:text-yellow-300 transition-colors">
-                                Lista
-                            </a>
-                            <a href="/pokemons/1" className="font-medium hover:text-yellow-300 transition-colors">
-                                Paginacion
-                            </a>
-                            <a href="/regions" className="font-medium hover:text-yellow-300 transition-colors">
-                                Regiones
-                            </a>
-                            <a href="/games" className="font-medium hover:text-yellow-300 transition-colors">
-                                Juegos
-                            </a>
-
+                            {
+                                links.map(link => (
+                                    <a key={link.text} href={link.href} className="font-medium hover:text-yellow-300 transition-colors">
+                                        {link.text}
+                                    </a>
+                                ))
+                            }
                         </nav>
                     </div>
                 )}
@@ -85,5 +77,6 @@ export default function Header() {
             {/* Barra inferior con degradado */}
             <div className="h-1 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-400"></div>
         </header>
+        </>
     )
 }
